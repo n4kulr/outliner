@@ -402,8 +402,8 @@ export default function Home() {
                 onOpenEvent={setOpenEventId}
               />
 
-              {/* Until the first outline is dropped, invite one under the day panel */}
-              {courses.length === 0 && <EmptyState onChoose={() => fileInput.current?.click()} />}
+              {/* Drop card, always under the day panel */}
+              <DropCard onChoose={() => fileInput.current?.click()} />
             </div>
           </div>
         )}
@@ -411,7 +411,7 @@ export default function Home() {
         {/* ---- List view ---- */}
         {view === "list" && (
           <div>
-            {courses.length === 0 && <EmptyState onChoose={() => fileInput.current?.click()} />}
+            <DropCard onChoose={() => fileInput.current?.click()} />
             <ListView today={today} events={visibleEvents} coursesByCode={coursesByCode} terms={terms} onOpenEvent={setOpenEventId} />
           </div>
         )}
@@ -555,8 +555,8 @@ function Segmented({ value, onChange }: { value: View; onChange: (view: View) =>
   );
 }
 
-// Shown under the day panel until the first outline is dropped
-function EmptyState({ onChoose }: { onChoose: () => void }) {
+// Always shown under the day panel: drop or choose more outlines
+function DropCard({ onChoose }: { onChoose: () => void }) {
   return (
     <div className="glass sheet-in mt-4 flex flex-col items-center rounded-[28px] px-6 py-8 text-center">
       <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-[18px] bg-fill text-accent">
