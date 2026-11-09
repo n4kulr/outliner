@@ -1,5 +1,7 @@
 // Turns "Week N" (plus an optional weekday) into a real calendar date.
-// Week 1 starts on termStart, so Week 1 Monday = termStart if the term starts on a Monday.
+// Week 1 starts on termStart (a Monday at UNSW). Week 0 is O-Week, the week before.
+
+import { addDays } from "./unswWeek";
 
 const WEEKDAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
@@ -25,23 +27,19 @@ export function weekToDate(termStart: string, week: number, weekday: string | nu
     return null;
   }
 
-  // Start of the requested week. Week 0 (O-Week) is the week before Week 1.
-  // We use UTC maths so daylight-saving changes can't shift the day.
-  const start = new Date(termStart + "T00:00:00Z");
+  // Start of the requested week
   let daysToAdd = (week - 1) * 7;
 
   // If a weekday was given, move forward to that day within the week.
-  // Days are counted relative to the weekday the term starts on.
   // With no weekday we stay on the first day of the week: it's better
   // to be reminded early than to miss a deadline.
   if (weekday) {
     const targetIndex = WEEKDAYS.indexOf(weekday.trim().toLowerCase());
     if (targetIndex !== -1) {
-      const startIndex = (start.getUTCDay() + 6) % 7; // convert Sunday=0 to Monday=0
+      const startIndex = (new Date(termStart + "T00:00:00Z").getUTCDay() + 6) % 7; // Monday = 0
       daysToAdd = daysToAdd + ((targetIndex - startIndex + 7) % 7);
     }
   }
 
-  start.setUTCDate(start.getUTCDate() + daysToAdd);
-  return start.toISOString().slice(0, 10);
+  return addDays(termStart, daysToAdd);
 }

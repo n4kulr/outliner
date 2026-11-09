@@ -1,5 +1,5 @@
 {
-  "name": "outline-to-calendar",
+  "name": "outliner",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "ics": "^3.12.1",
+    "mammoth": "^1.13.0",
     "next": "15.5.29",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "unpdf": "^1.7.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
