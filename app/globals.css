@@ -95,6 +95,14 @@ body {
     transform: scale(0.94);
   }
 
+  /* Scrolls without showing a scrollbar */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .sheet-in {
     animation: sheet-in 0.38s cubic-bezier(0.2, 0.9, 0.25, 1.05);
   }

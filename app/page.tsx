@@ -411,8 +411,8 @@ export default function Home() {
         {/* ---- List view ---- */}
         {view === "list" && (
           <div>
-            <DropCard onChoose={() => fileInput.current?.click()} />
             <ListView today={today} events={visibleEvents} coursesByCode={coursesByCode} terms={terms} onOpenEvent={setOpenEventId} />
+            <DropCard onChoose={() => fileInput.current?.click()} />
           </div>
         )}
       </main>
@@ -555,7 +555,7 @@ function Segmented({ value, onChange }: { value: View; onChange: (view: View) =>
   );
 }
 
-// Always shown under the day panel: drop or choose more outlines
+// Shown under the day panel (month view) or the list: drop or choose more outlines
 function DropCard({ onChoose }: { onChoose: () => void }) {
   return (
     <div className="glass sheet-in mt-4 flex flex-col items-center rounded-[28px] px-6 py-8 text-center">

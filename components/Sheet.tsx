@@ -27,16 +27,17 @@ export default function Sheet({ title, onClose, leftAction, rightAction, childre
         role="dialog"
         aria-label={title}
         onClick={(event) => event.stopPropagation()}
-        className="glass glass-strong sheet-in max-h-[88vh] w-full overflow-y-auto rounded-t-[32px] pb-6 sm:max-w-md sm:rounded-[32px]"
+        className="glass glass-strong sheet-in flex max-h-[88vh] w-full flex-col overflow-hidden rounded-t-[32px] sm:max-w-md sm:rounded-[32px]"
       >
         {/* Grabber + navigation bar */}
-        <div className="mx-auto mt-2 h-1.5 w-10 rounded-full bg-fill-2 sm:hidden" />
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center px-4 pb-2 pt-3">
+        <div className="mx-auto mt-2 h-1.5 w-10 shrink-0 rounded-full bg-fill-2 sm:hidden" />
+        <div className="grid shrink-0 grid-cols-[1fr_auto_1fr] items-center px-4 pb-2 pt-3">
           <div className="justify-self-start">{leftAction}</div>
           <h2 className="text-[17px] font-semibold text-label">{title}</h2>
           <div className="justify-self-end">{rightAction}</div>
         </div>
-        <div className="px-4">{children}</div>
+        {/* Only the content scrolls, with no visible scrollbar, so the rounded glass edge stays clean */}
+        <div className="no-scrollbar overflow-y-auto overscroll-contain px-4 pb-6">{children}</div>
       </div>
     </div>
   );
