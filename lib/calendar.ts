@@ -122,10 +122,10 @@ export function weightClass(weight: number | null): string {
     return "bg-fill text-label-2";
   }
   if (weight > 30) {
-    return "bg-red-500/15 text-red-600 dark:text-red-400";
+    return "bg-red-500/15 text-red-400";
   }
   if (weight >= 15) {
-    return "bg-orange-500/15 text-orange-600 dark:text-orange-400";
+    return "bg-orange-500/15 text-orange-400";
   }
-  return "bg-green-500/15 text-green-700 dark:text-green-400";
+  return "bg-green-500/15 text-green-400";
 }

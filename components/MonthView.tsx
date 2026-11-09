@@ -102,7 +102,7 @@ export default function MonthView(props: Props) {
                       className={cx(
                         "flex h-7 w-7 items-center justify-center rounded-full text-[15px] tabular-nums transition-colors",
                         isToday && "bg-accent font-semibold text-white",
-                        !isToday && isSelected && "bg-label font-semibold text-[var(--bg)]",
+                        !isToday && isSelected && "bg-label font-semibold text-black",
                         !isToday && !isSelected && inMonth && "text-label",
                         !isToday && !isSelected && !inMonth && "text-label-3"
                       )}

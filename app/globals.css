@@ -1,48 +1,24 @@
 @import "tailwindcss";
 
-/* iOS system colours. Dark mode swaps them automatically. */
+/* iOS dark-mode system colours over a gray-to-black background */
 :root {
-  --bg: #f2f2f7;
-  --label: #000000;
-  --label-2: rgba(60, 60, 67, 0.62);
-  --label-3: rgba(60, 60, 67, 0.32);
-  --separator: rgba(60, 60, 67, 0.14);
-  --fill: rgba(120, 120, 128, 0.12);
-  --fill-2: rgba(120, 120, 128, 0.2);
-  --accent: #ff3b30;
-  --grouped: rgba(255, 255, 255, 0.75);
-  --glass-bg: rgba(255, 255, 255, 0.5);
-  --glass-strong: rgba(250, 250, 252, 0.78);
-  --glass-border: rgba(255, 255, 255, 0.55);
-  --glass-rim: rgba(255, 255, 255, 0.95);
-  --glass-shadow: 0 12px 40px rgba(20, 20, 50, 0.1), 0 2px 6px rgba(20, 20, 50, 0.05);
-  --blob-1: #ffb4a8;
-  --blob-2: #a8c8ff;
-  --blob-3: #d7b8ff;
-  --blob-4: #ffe2a0;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000000;
-    --label: #ffffff;
-    --label-2: rgba(235, 235, 245, 0.62);
-    --label-3: rgba(235, 235, 245, 0.3);
-    --separator: rgba(84, 84, 88, 0.5);
-    --fill: rgba(120, 120, 128, 0.24);
-    --fill-2: rgba(120, 120, 128, 0.36);
-    --accent: #ff453a;
-    --grouped: rgba(44, 44, 46, 0.7);
-    --glass-bg: rgba(40, 40, 45, 0.45);
-    --glass-strong: rgba(30, 30, 34, 0.78);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-rim: rgba(255, 255, 255, 0.18);
-    --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
-    --blob-1: #7a2232;
-    --blob-2: #1d3a7a;
-    --blob-3: #4b2380;
-    --blob-4: #6b4a12;
-  }
+  color-scheme: dark;
+  --bg: linear-gradient(180deg, #3a3a3c 0%, #1c1c1e 40%, #000000 100%);
+  --label: #ffffff;
+  --label-2: rgba(235, 235, 245, 0.62);
+  --label-3: rgba(235, 235, 245, 0.3);
+  --separator: rgba(84, 84, 88, 0.5);
+  --fill: rgba(120, 120, 128, 0.24);
+  --fill-2: rgba(120, 120, 128, 0.36);
+  --accent: #ff453a;
+  --grouped: rgba(44, 44, 46, 0.7);
+  --glass-bg: rgba(60, 60, 64, 0.38);
+  --glass-strong: rgba(30, 30, 34, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-rim: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --glow-1: #6e6e73;
+  --glow-2: #48484a;
 }
 
 /* Lets us write classes like text-label, bg-fill, border-separator, text-accent */
@@ -59,7 +35,7 @@
 }
 
 body {
-  background: var(--bg);
+  background: #000000 var(--bg) fixed;
   color: var(--label);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -67,7 +43,7 @@ body {
 }
 
 @layer components {
-  /* Soft colour blobs behind the app so the glass has something to bend */
+  /* Soft gray glows behind the app so the glass has something to bend */
   .backdrop {
     position: fixed;
     inset: 0;
@@ -79,7 +55,7 @@ body {
     position: absolute;
     border-radius: 9999px;
     filter: blur(90px);
-    opacity: 0.6;
+    opacity: 0.35;
     animation: drift 24s ease-in-out infinite alternate;
   }
 

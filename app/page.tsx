@@ -379,7 +379,7 @@ export default function Home() {
 
         {/* ---- Month view: grid + the selected day's list ---- */}
         {view === "month" && (
-          <div className="relative grid gap-4 lg:grid-cols-[1fr_360px]">
+          <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
             <MonthView
               year={visibleMonth.year}
               month={visibleMonth.month}
@@ -401,17 +401,18 @@ export default function Home() {
                 terms={terms}
                 onOpenEvent={setOpenEventId}
               />
-            </div>
 
-            {courses.length === 0 && <EmptyState onChoose={() => fileInput.current?.click()} />}
+              {/* Until the first outline is dropped, invite one under the day panel */}
+              {courses.length === 0 && <EmptyState onChoose={() => fileInput.current?.click()} />}
+            </div>
           </div>
         )}
 
         {/* ---- List view ---- */}
         {view === "list" && (
-          <div className="relative">
-            <ListView today={today} events={visibleEvents} coursesByCode={coursesByCode} terms={terms} onOpenEvent={setOpenEventId} />
+          <div>
             {courses.length === 0 && <EmptyState onChoose={() => fileInput.current?.click()} />}
+            <ListView today={today} events={visibleEvents} coursesByCode={coursesByCode} terms={terms} onOpenEvent={setOpenEventId} />
           </div>
         )}
       </main>
@@ -478,14 +479,12 @@ export default function Home() {
 // Small pieces used only on this page
 // ---------------------------------------------------------------------------
 
-// Colourful blurred blobs behind the glass
+// Gray-to-black gradient behind the glass, with two soft gray glows so the glass has something to bend
 function Backdrop() {
   return (
     <div className="backdrop" aria-hidden>
-      <span style={{ background: "var(--blob-1)", width: "45vw", height: "45vw", top: "-10vw", left: "-8vw" }} />
-      <span style={{ background: "var(--blob-2)", width: "40vw", height: "40vw", top: "20vh", right: "-10vw", animationDelay: "-6s" }} />
-      <span style={{ background: "var(--blob-3)", width: "35vw", height: "35vw", bottom: "-10vw", left: "25vw", animationDelay: "-12s" }} />
-      <span style={{ background: "var(--blob-4)", width: "25vw", height: "25vw", bottom: "10vh", left: "-5vw", animationDelay: "-18s" }} />
+      <span style={{ background: "var(--glow-1)", width: "50vw", height: "50vw", top: "-15vw", left: "-10vw" }} />
+      <span style={{ background: "var(--glow-2)", width: "40vw", height: "40vw", top: "30vh", right: "-12vw", animationDelay: "-12s" }} />
     </div>
   );
 }
@@ -534,7 +533,7 @@ function Segmented({ value, onChange }: { value: View; onChange: (view: View) =>
     <div className="glass relative grid grid-cols-2 rounded-full p-1">
       <span
         className={cx(
-          "absolute bottom-1 left-1 top-1 w-[calc(50%-4px)] rounded-full bg-white/90 shadow-sm transition-transform duration-300 dark:bg-white/20",
+          "absolute bottom-1 left-1 top-1 w-[calc(50%-4px)] rounded-full bg-white/20 shadow-sm transition-transform duration-300",
           thumbPosition
         )}
       />
@@ -556,26 +555,24 @@ function Segmented({ value, onChange }: { value: View; onChange: (view: View) =>
   );
 }
 
-// Shown over the calendar until the first outline is dropped
+// Shown under the day panel until the first outline is dropped
 function EmptyState({ onChoose }: { onChoose: () => void }) {
   return (
-    <div className="pointer-events-none absolute inset-0 z-20 flex items-start justify-center pt-16 sm:items-center sm:pt-0">
-      <div className="glass glass-strong sheet-in pointer-events-auto mx-4 flex max-w-sm flex-col items-center rounded-[32px] px-8 py-9 text-center">
-        <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-[18px] bg-fill text-accent">
-          <Doc className="h-8 w-8" />
-        </span>
-        <p className="text-[20px] font-bold text-label">Drop your course outlines</p>
-        <p className="mt-1.5 text-[14px] leading-snug text-label-2">
-          Drag PDFs anywhere on this page. Outliner reads them and puts every assessment on this calendar, with Week numbers worked out from the current UNSW term.
-        </p>
-        <button
-          type="button"
-          onClick={onChoose}
-          className="press mt-5 rounded-full bg-accent px-6 py-2.5 text-[15px] font-semibold text-white shadow-[0_6px_20px_rgba(255,59,48,0.4)]"
-        >
-          Choose files
-        </button>
-      </div>
+    <div className="glass sheet-in mt-4 flex flex-col items-center rounded-[28px] px-6 py-8 text-center">
+      <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-[18px] bg-fill text-accent">
+        <Doc className="h-8 w-8" />
+      </span>
+      <p className="text-[20px] font-bold text-label">Drop your course outlines</p>
+      <p className="mt-1.5 text-[14px] leading-snug text-label-2">
+        Drag PDFs anywhere on this page. Outliner reads them and puts every assessment on this calendar, with Week numbers worked out from the current UNSW term.
+      </p>
+      <button
+        type="button"
+        onClick={onChoose}
+        className="press mt-5 rounded-full bg-accent px-6 py-2.5 text-[15px] font-semibold text-white shadow-[0_6px_20px_rgba(255,59,48,0.4)]"
+      >
+        Choose files
+      </button>
     </div>
   );
 }
